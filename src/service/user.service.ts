@@ -2,7 +2,12 @@ import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "./firebase";
 
-export const getUserById = async (userId: string) => {
+type UserData = {
+  id: string;
+  [key: string]: any;
+};
+
+export const getUserById = async (userId: string): Promise<UserData | null> => {
   const snapshot = await getDoc(doc(db, "users", userId));
 
   if (!snapshot.exists()) {
